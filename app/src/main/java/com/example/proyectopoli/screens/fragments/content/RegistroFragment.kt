@@ -2,6 +2,7 @@ package com.example.proyectopoli.screens.fragments.content
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,6 +15,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -36,6 +39,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.proyectopoli.R
 import com.example.proyectopoli.ui.theme.BlackButton
+import com.example.proyectopoli.ui.theme.BlueButton
 
 @Composable
 @Preview
@@ -109,6 +113,28 @@ fun RegistroFragment() {
             Spacer(modifier = Modifier.height(25.dp))
 
 
+            // Botón para crear la cuenta
+            Button(
+                onClick = { /* Acción de registro */ },
+                colors = ButtonDefaults.buttonColors(containerColor = BlueButton),
+                modifier = Modifier.width(160.dp)
+            ) {
+                Text("Crear cuenta", color = Color.White, fontSize = 16.sp)
+            }
+
+            Spacer(modifier = Modifier.height(30.dp))
+
+            // Cuadro de texto para iniciar sesión
+            Row {
+                Text("¿Ya tienes una cuenta?", color = Color.White)
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(
+                    "Inicia Sesión",
+                    color = BlueButton,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.clickable { /* Navegar al login */ }
+                )
+            }
         }
     }
 }
