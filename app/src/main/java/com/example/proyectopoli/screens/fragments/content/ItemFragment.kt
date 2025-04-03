@@ -1,7 +1,6 @@
 package com.example.proyectopoli.screens.fragments.content
 
 // Importación de librerias necesarias
-import android.inputmethodservice.Keyboard.Row
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -68,6 +67,7 @@ fun ShopViewScreen() {
 @Composable
 fun TopBar() {
     TopAppBar(
+        // Botón para para retroceder en la barra superior
         navigationIcon = {
             IconButton(
                 onClick = { /* Acción de retroceso */ },
@@ -81,6 +81,8 @@ fun TopBar() {
                 )
             }
         },
+
+        // Nombre de la aplicación en la barra superior
         title = {
             Box(
                 modifier = Modifier.fillMaxSize(),
@@ -145,11 +147,11 @@ fun ProductImage() {
 @Composable
 fun ProductInfo() {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Text("Item XXXX", fontWeight = FontWeight.Bold, fontSize = 28.sp, color = Color.Black)
+        Text("Item XXXX", fontWeight = FontWeight.Bold, fontSize = 28.sp, color = Color.Black) // Nombre del producto
         Spacer(modifier = Modifier.height(18.dp))
-        Text("Descripción del Producto", fontSize = 22.sp, color = Color.Gray, textAlign = TextAlign.Center)
+        Text("Descripción del Producto", fontSize = 22.sp, color = Color.Gray, textAlign = TextAlign.Center) // Descripción del Producto
         Spacer(modifier = Modifier.height(30.dp))
-        Text("$200.000", fontWeight = FontWeight.Bold, fontSize = 36.sp, color = Color.Black)
+        Text("$200.000", fontWeight = FontWeight.Bold, fontSize = 36.sp, color = Color.Black) // Precio del Producto
     }
 }
 
