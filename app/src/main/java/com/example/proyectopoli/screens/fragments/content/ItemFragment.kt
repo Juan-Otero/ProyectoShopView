@@ -108,6 +108,17 @@ fun ProductImage() {
     }
 }
 
+// Componente de informacion detallada del producto
+@Composable
+fun ProductInfo() {
+    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Text("Nombre del Producto", fontWeight = FontWeight.Bold, fontSize = 20.sp)
+        Text("Descripción del Producto", fontSize = 16.sp, color = Color.Gray)
+        Spacer(modifier = Modifier.height(10.dp))
+        Text("$200.000", fontWeight = FontWeight.Bold, fontSize = 24.sp)
+    }
+}
+
 
 // Visualizar el fragment con el metodo Preview
 @Preview(showBackground = true)
