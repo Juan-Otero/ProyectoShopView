@@ -15,7 +15,13 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -23,10 +29,13 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.proyectopoli.R
+import com.example.proyectopoli.ui.theme.BlackButton
 
 @Composable
 @Preview
@@ -77,4 +86,33 @@ fun RegistroFragment() {
             ){}
         }
     }
+}
+
+// Componente para crear y personalizar los campos de texto
+@Composable
+fun TextField(placeholder: String, isPassword: Boolean = false, modifier: Modifier = Modifier) {
+    var text by remember { mutableStateOf("") }
+
+    // Parametros de texto de los campos
+    TextField(
+        value = text,
+        onValueChange = { text = it },
+        placeholder = { Text(placeholder, color = Color.Gray) },
+        singleLine = true,
+        visualTransformation = if (isPassword) PasswordVisualTransformation() else VisualTransformation.None,
+        modifier = modifier
+            .fillMaxWidth()
+            .height(60.dp)
+            .clip(RoundedCornerShape(15.dp))
+            .padding(2.dp),
+
+        // Parametros de color del texto y el fondo de los campos
+        colors = TextFieldDefaults.colors(
+            focusedContainerColor = Color(0xFFDDDDDD),
+            unfocusedContainerColor = Color(0xFFDDDDDD),
+            cursorColor = BlackButton,
+            focusedTextColor = BlackButton,
+            unfocusedTextColor = BlackButton
+        )
+    )
 }
