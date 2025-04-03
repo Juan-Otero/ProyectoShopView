@@ -11,9 +11,6 @@ import com.example.proyectopoli.screens.fragments.content.CarritoFragment
 @Composable
 fun ContentNavigation(selectedOption: String) {
     when (selectedOption) {
-//        "inicio" -> InicioFragment()
-//        "login" -> LoginFragment()
-//        "registro" -> RegistroFragment()
         "home" -> HomeFragment()
         "perfil" -> PerfilFragment()
         "buscar" -> BuscarFragment()

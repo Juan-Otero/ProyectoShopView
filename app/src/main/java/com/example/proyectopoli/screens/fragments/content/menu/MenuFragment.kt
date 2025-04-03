@@ -42,7 +42,7 @@ fun MenuFragment(
         modifier = Modifier.fillMaxSize()
     ) {
         Text(
-            text = "ShopView",
+            text = "Menú",
             style = MaterialTheme.typography.titleLarge,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center,

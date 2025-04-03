@@ -123,7 +123,7 @@ fun ProductImage() {
 
         // Imagen del producto
         Image(
-            painter = painterResource(id = R.drawable.ic_launcher_background),
+            painter = painterResource(id = R.drawable.product_image),
             contentDescription = "Imagen del producto",
             modifier = Modifier
                 .size(220.dp)
