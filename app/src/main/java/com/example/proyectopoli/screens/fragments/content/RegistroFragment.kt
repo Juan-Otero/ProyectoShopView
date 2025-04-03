@@ -80,17 +80,42 @@ fun RegistroFragment() {
 
             Spacer(modifier = Modifier.height(20.dp))
 
+            // Campos de texto para el nombre
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
-            ){}
+            ) {
+                CustomTextField(placeholder = "Nombres", modifier = Modifier.weight(1f))
+                Spacer(modifier = Modifier.width(20.dp))
+                CustomTextField(placeholder = "Apellidos", modifier = Modifier.weight(1f))
+            }
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            // Campo de texto del telefono
+            CustomTextField(placeholder = "Teléfono",)
+            Spacer(modifier = Modifier.height(20.dp))
+
+            // Campo de texto de la dirección
+            CustomTextField(placeholder = "Dirección")
+            Spacer(modifier = Modifier.height(20.dp))
+
+            // Campo de texto para el correo electrónico
+            CustomTextField(placeholder = "Email")
+            Spacer(modifier = Modifier.height(20.dp))
+
+            // Campo de texto para la contraseña
+            CustomTextField(placeholder = "Contraseña", isPassword = true)
+            Spacer(modifier = Modifier.height(25.dp))
+
+
         }
     }
 }
 
 // Componente para crear y personalizar los campos de texto
 @Composable
-fun TextField(placeholder: String, isPassword: Boolean = false, modifier: Modifier = Modifier) {
+fun CustomTextField(placeholder: String, isPassword: Boolean = false, modifier: Modifier = Modifier) {
     var text by remember { mutableStateOf("") }
 
     // Parametros de texto de los campos
