@@ -34,8 +34,9 @@ import com.example.proyectopoli.ui.theme.BlueTopBar
 
 
 // Vista general del fragmento y fijación de la barra superior
+@Preview
 @Composable
-fun ShopViewScreen() {
+fun ItemFragment() {
     Scaffold(
         topBar = { TopBar() } // Fijar la barra superior
     ) { paddingValues ->
@@ -196,12 +197,4 @@ fun VisitLink() {
         textDecoration = TextDecoration.Underline,
         modifier = Modifier.clickable { /* Acción para abrir el enlace */ }
     )
-}
-
-
-// Visualizar el fragment con el metodo Preview
-@Preview(showBackground = true)
-@Composable
-fun PreviewShopView() {
-    ShopViewScreen()
 }
