@@ -21,21 +21,25 @@ import androidx.compose.ui.unit.sp
 @Composable
 @Preview
 fun PerfilFragment() {
+
+    // Contenedor de todos los elementos del fragment
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
-            .padding(16.dp),
+            .padding(0.dp),
         contentAlignment = Alignment.TopCenter
     ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
         ) {
+
+            // Barra superior de la pantalla
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(80.dp)
+                    .height(60.dp)
                     .background(Color(0xFF2A3B65)),
                 contentAlignment = Alignment.CenterStart
             ) {
@@ -43,33 +47,38 @@ fun PerfilFragment() {
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier.padding(start = 16.dp)
                 ) {
+
+                    // Botón para retroceder
                     Icon(
                         imageVector = Icons.Default.ArrowBack,
                         contentDescription = "Back",
                         tint = Color.White,
                         modifier = Modifier
-                            .size(24.dp)
+                            .size(26.dp)
                             .clickable { /* Navegar hacia atrás */ }
                     )
-                    Spacer(modifier = Modifier.width(12.dp))
+
+                    // Texto ShopView con estrella
+                    Spacer(modifier = Modifier.width(90.dp))
                     Icon(
                         imageVector = Icons.Default.Star,
                         contentDescription = "Star",
                         tint = Color.White,
-                        modifier = Modifier.size(20.dp)
+                        modifier = Modifier.size(24.dp)
                     )
                     Spacer(modifier = Modifier.width(6.dp))
                     Text(
                         text = "ShopView",
                         color = Color.White,
-                        fontSize = 18.sp,
+                        fontSize = 22.sp,
                         fontWeight = FontWeight.Medium
                     )
                 }
             }
 
-            Spacer(modifier = Modifier.height(40.dp))
+            Spacer(modifier = Modifier.height(20.dp))
 
+            // Columna que contiene el título de la pantalla y los campos de texto
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -79,32 +88,51 @@ fun PerfilFragment() {
                     .padding(24.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
+
+                // Titulo
                 Text(
                     text = "Datos Personales",
-                    fontSize = 22.sp,
+                    fontSize = 28.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.Black
                 )
 
-                Spacer(modifier = Modifier.height(24.dp))
-
-                CustomProfileTextField("Nombres")
-                CustomProfileTextField("Apellidos")
-                CustomProfileTextField("Telefono")
-                CustomProfileTextField("Dirección")
-                CustomProfileTextField("Email")
-
                 Spacer(modifier = Modifier.height(30.dp))
 
+
+                // Campos de texto de los datos del usuario
+                CustomProfileTextField("Nombres")
+                Spacer(modifier = Modifier.height(15.dp))
+
+                CustomProfileTextField("Apellidos")
+                Spacer(modifier = Modifier.height(15.dp))
+
+                CustomProfileTextField("Telefono")
+                Spacer(modifier = Modifier.height(15.dp))
+
+                CustomProfileTextField("Dirección")
+                Spacer(modifier = Modifier.height(15.dp))
+
+                CustomProfileTextField("Email")
+
+                Spacer(modifier = Modifier.height(50.dp))
+
+
+                // Botón para guardar los cambios realizados
                 Button(
                     onClick = { /* Guardar datos */ },
                     shape = RoundedCornerShape(50),
                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF3B68B2)),
                     modifier = Modifier
-                        .fillMaxWidth()
+                        .width(130.dp)
                         .height(50.dp)
                 ) {
-                    Text("Guardar", fontWeight = FontWeight.Bold, color = Color.White)
+                    Text(
+                        "Guardar",
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.White
+                    )
                 }
             }
         }
