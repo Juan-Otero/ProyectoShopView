@@ -8,6 +8,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.CloudQueue
 import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.ListAlt
@@ -33,9 +34,9 @@ fun MenuFragment(
         MenuItem(id = "home", title = "Home", icon = Icons.Default.Home),
         MenuItem(id = "perfil", title = "Perfil", icon = Icons.Default.AccountCircle),
         MenuItem(id = "buscar", title = "Buscar", icon = Icons.Default.Search),
-        MenuItem(id = "resumen", title = "Resúmen", icon = Icons.Default.ListAlt),
         MenuItem(id = "carrito", title = "Carrito", icon = Icons.Default.ShoppingCart),
-        MenuItem(id = "historial", title = "Historial", icon = Icons.Default.History)
+        MenuItem(id = "historial", title = "Historial", icon = Icons.Default.History),
+        MenuItem(id = "web", title = "Web", icon = Icons.Default.CloudQueue)
     )
 
     Column(
