@@ -34,7 +34,7 @@ import kotlinx.coroutines.launch
 fun HomeScreen() {
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
-    var selectedOption by remember { mutableStateOf("home") }
+    var selectedOption by remember { mutableStateOf("inicio") }
 
     ModalNavigationDrawer(
         drawerState = drawerState,
