@@ -40,7 +40,7 @@ data class OrderProduct(val product: String, val price: Int)
 
 @Preview
 @Composable
-fun ResumenFragment() {
+fun PedidoFragment() {
 
     // Reutilizaación de la barra superior del FragmentItem
     Scaffold(
