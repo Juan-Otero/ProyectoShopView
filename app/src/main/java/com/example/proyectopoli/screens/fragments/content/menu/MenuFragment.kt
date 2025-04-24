@@ -26,11 +26,14 @@ import androidx.compose.ui.unit.dp
 import com.example.proyectopoli.model.MenuItem
 import com.example.proyectopoli.ui.theme.components.DrawerItem
 
+// Menú de navegación lateral para desplazarse hacia otras pantallas de la App
 @Composable
 fun MenuFragment(
     selectedOption: String,
     onOptionSelected: (String) -> Unit
 ) {
+
+    // Listado de opciones
     val menuItems = listOf(
         MenuItem(id = "home", title = "Home", icon = Icons.Default.Home),
         MenuItem(id = "perfil", title = "Perfil", icon = Icons.Default.AccountCircle),
@@ -42,6 +45,7 @@ fun MenuFragment(
         MenuItem(id = "registro", title = "Registrarse", icon = Icons.Default.AppRegistration),
     )
 
+    // Icono superior para abrir el menú
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -57,6 +61,7 @@ fun MenuFragment(
 
         Divider()
 
+        // Columna lateral con las opciones
         LazyColumn {
             items(menuItems) { item ->
                 DrawerItem(

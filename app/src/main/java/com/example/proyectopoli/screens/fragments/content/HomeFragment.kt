@@ -31,7 +31,6 @@ import com.example.proyectopoli.ui.theme.BlackButton
 import java.text.NumberFormat
 import java.util.Locale
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeFragment(navController: NavController) {
 
@@ -56,6 +55,7 @@ fun HomeFragment(navController: NavController) {
 
             Spacer(modifier = Modifier.height(30.dp))
 
+            // Logo principal del catalogo
             Box(
                 modifier = Modifier.fillMaxWidth(),
                 contentAlignment = Alignment.Center
@@ -125,7 +125,7 @@ fun HomeFragment(navController: NavController) {
     }
 }
 
-
+// Botones de las categoría de productos
 @Composable
 fun CategoryCard(category: Category) {
     Card(
@@ -164,6 +164,7 @@ fun CategoryCard(category: Category) {
     }
 }
 
+// Componente con las cartas de los productos (Nombre, Precio, Foto)
 @Composable
 fun ProductCard(product: Product, onClick: () -> Unit) {
     Card(
@@ -205,6 +206,7 @@ fun ProductCard(product: Product, onClick: () -> Unit) {
     }
 }
 
+// Funcion para formatear el precio con separador de miles
 fun formatPrice(price: Double): String {
     val format = NumberFormat.getNumberInstance(Locale("es", "CO"))
     format.minimumFractionDigits = 0

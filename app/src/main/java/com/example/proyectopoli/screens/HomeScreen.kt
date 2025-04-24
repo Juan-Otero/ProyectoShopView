@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -30,6 +29,7 @@ import com.example.proyectopoli.navigation.ContentNavigation
 import com.example.proyectopoli.screens.fragments.content.menu.MenuFragment
 import kotlinx.coroutines.launch
 
+// Pantalla inicial que se muestra al abrir la aplicación
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen() {

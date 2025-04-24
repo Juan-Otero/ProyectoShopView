@@ -32,8 +32,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.proyectopoli.R
 import com.example.proyectopoli.ui.theme.BlackButton
-import java.text.NumberFormat
-import java.util.Locale
 
 // Lista de los productos agregados
 data class OrderProduct(val product: String, val price: Int)

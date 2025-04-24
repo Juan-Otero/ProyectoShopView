@@ -15,17 +15,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.proyectopoli.model.ProductRepository
 import com.example.proyectopoli.ui.theme.BlackButton
 
+
+// PANTALLA DE BÚSQUEDA DE PRODUCTOS
 @Composable
 fun BuscarFragment(navController: NavController) {
-    var searchQuery by remember { mutableStateOf("") }
-    val allProduct = ProductRepository.getAllProducts()
+    var searchQuery by remember { mutableStateOf("") } // Variable que almacena el nombre del producto buscado
+    val allProduct = ProductRepository.getAllProducts() // Listado de todos los productos del catalogo
 
     // Barra superior de fragment Item
     Scaffold(
@@ -72,7 +73,7 @@ fun BuscarFragment(navController: NavController) {
 
             Text(
                 text = "Resultados para búsqueda",
-                fontSize = 34.sp,
+                fontSize = 30.sp,
                 fontWeight = FontWeight.Light,
                 color = BlackButton,
                 modifier = Modifier.align(Alignment.CenterHorizontally),

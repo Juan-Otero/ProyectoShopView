@@ -1,7 +1,6 @@
 package com.example.proyectopoli.screens.fragments.content
 
 import android.content.Intent
-import android.inputmethodservice.Keyboard.Row
 import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -22,7 +21,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -44,11 +42,12 @@ import androidx.compose.ui.unit.sp
 import com.example.proyectopoli.R
 import com.example.proyectopoli.ui.theme.BlackButton
 
+// PANTALLA PARA NAVEGACIÓN WEB
 @Composable
 @Preview
 fun WebFragment() {
     Scaffold(
-        topBar = { TopBar() } // Reutilizas tu barra superior
+        topBar = { TopBar() } // Reutilización de la barra superior
     ) { paddingValues ->
         Column(
             modifier = Modifier

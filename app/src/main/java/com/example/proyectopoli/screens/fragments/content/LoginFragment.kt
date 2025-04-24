@@ -5,9 +5,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Visibility
-import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -17,15 +14,13 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.proyectopoli.R
-import com.example.proyectopoli.ui.theme.BlackButton
 import com.example.proyectopoli.ui.theme.BlueButton
 
+// Pantalla de Inicio de Sesion
 @Composable
 @Preview
 fun LoginFragment() {
@@ -49,6 +44,8 @@ fun LoginFragment() {
                 .padding(14.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+
+            // Logo de la aplicacion
             Image(
                 painter = painterResource(id = R.drawable.logo_shopview),
                 contentDescription = "Logo",
@@ -59,15 +56,19 @@ fun LoginFragment() {
 
             Spacer(modifier = Modifier.height(30.dp))
 
+            // Titulo de pantalla
             Text("Login", fontSize = 28.sp, fontWeight = FontWeight.Bold, color = Color.White)
 
             Spacer(modifier = Modifier.height(30.dp))
 
+            // Campos de texto para iniciar sesión
             CustomTextField(placeholder = "Email", isPassword = false)
             Spacer(modifier = Modifier.height(20.dp))
             CustomTextField(placeholder = "Contraseña", isPassword = true)
             Spacer(modifier = Modifier.height(25.dp))
 
+
+            // Botón para iniciar sesión
             Button(
                 onClick = { /* Acción de login */ },
                 colors = ButtonDefaults.buttonColors(containerColor = BlueButton),
@@ -78,6 +79,7 @@ fun LoginFragment() {
 
             Spacer(modifier = Modifier.height(30.dp))
 
+            // Opción para ir a la pantalla de registro en caso de no tener una cuenta creada
             Row {
                 Text("¿No tienes una cuenta?", color = Color.White, fontSize = 16.sp)
                 Spacer(modifier = Modifier.width(8.dp))

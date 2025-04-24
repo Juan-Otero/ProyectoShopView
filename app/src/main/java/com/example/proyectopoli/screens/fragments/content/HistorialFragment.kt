@@ -129,7 +129,7 @@ fun OrderItemStyled(orderId: String, itemCount: String, icon: ImageVector) {
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center, // centra horizontalmente
+            horizontalArrangement = Arrangement.Center,
             modifier = Modifier
                 .fillMaxSize()
                 .padding(horizontal = 16.dp)

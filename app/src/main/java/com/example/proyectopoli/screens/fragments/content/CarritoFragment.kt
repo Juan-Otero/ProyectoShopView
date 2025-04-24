@@ -49,7 +49,7 @@ data class CartProduct(val product: String, val price: Int)
 @Composable
 fun CarritoFragment() {
 
-    // Reutilizaación de la barra superior del FragmentItem
+    // Reutilización de la barra superior del FragmentItem
     Scaffold(
         topBar = { TopBar() }
     ) { paddingValues ->
@@ -78,7 +78,7 @@ fun CarritoFragment() {
                         .background(
                             brush = Brush.verticalGradient(
                                 colors = listOf(
-                                    Color(0xFFE0E0E0), // color inicial
+                                    Color(0xFFE0E0E0),
                                     Color.White
                                 )
                             )
