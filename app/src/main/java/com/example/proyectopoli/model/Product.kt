@@ -7,5 +7,6 @@ data class Product(
     val prodPrice: Double,
     val prodCategory: Category,
     val officialUrl: String,
-    val imageResIds: List<Int>
+    val imageResIds: List<Int>,
+    val videoResId: Int
 )
