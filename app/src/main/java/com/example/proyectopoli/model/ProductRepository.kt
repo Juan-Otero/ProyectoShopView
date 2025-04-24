@@ -11,6 +11,7 @@ object ProductRepository{
 
             // CELULARES
             Product(
+                1001,
                 "Iphone 15 Pro",
                 "Apple | Iphone 15",
                 3800000.0,
@@ -25,6 +26,7 @@ object ProductRepository{
             ),
 
             Product(
+                1002,
                 "Motorola Edge 50 Fusion",
                 "Smartphone Motorola",
                 2000000.0,
@@ -39,6 +41,7 @@ object ProductRepository{
             ),
 
             Product(
+                1003,
                 "Xiaomi REDMI Note 14",
                 "Xiaomi | REDMI",
                 890000.0,
@@ -53,6 +56,7 @@ object ProductRepository{
             ),
 
             Product(
+                1004,
                 "Samsung Galaxy A36",
                 "Samsung | 5G 128GB",
                 1580000.0,
@@ -69,6 +73,7 @@ object ProductRepository{
 
             // TABLETS
             Product(
+                2001,
                 "Samsung S6 Lite 128GB",
                 "Samsung | Oxford Gray",
                 1580000.0,
@@ -83,6 +88,7 @@ object ProductRepository{
             ),
 
             Product(
+                2002,
                 "Honor Pad X8a 128GB",
                 "Tablet | Honor 128GB",
                 1580000.0,
@@ -97,6 +103,7 @@ object ProductRepository{
             ),
 
             Product(
+                2003,
                 "Ipad 10.9' 10ma Gen",
                 "Apple | Ipad",
                 1580000.0,
@@ -112,6 +119,7 @@ object ProductRepository{
 
             // LAPTOPS
             Product(
+                3001,
                 "HP 15.6' AMD Ryzen 7",
                 "HP | Pavilion",
                 1580000.0,
@@ -126,6 +134,7 @@ object ProductRepository{
             ),
 
             Product(
+                3002,
                 "Lenovo IdeaPad Slim 3",
                 "Lenovo | Idepad",
                 1580000.0,
@@ -140,6 +149,7 @@ object ProductRepository{
             ),
 
             Product(
+                3003,
                 "Acer Aspire 15.6' C7SG",
                 "ACER | Aspire",
                 1580000.0,
@@ -154,6 +164,7 @@ object ProductRepository{
             ),
 
             Product(
+                3004,
                 "Asus Vivobook Go 15.6'",
                 "Asus | Vivobook",
                 1580000.0,
@@ -169,6 +180,7 @@ object ProductRepository{
 
             // ACCESORIOS
             Product(
+                4001,
                 "Huawei GT5 Pro",
                 "Huawei | Smartwatch",
                 1580000.0,
@@ -183,6 +195,7 @@ object ProductRepository{
             ),
 
             Product(
+                4002,
                 "Samsung Galaxy Buds3 Pro",
                 "Audifonos In Ear",
                 1580000.0,
@@ -196,6 +209,7 @@ object ProductRepository{
             ),
 
             Product(
+                4003,
                 "HyperX Quadcast S",
                 "HyperX | Microfono",
                 1580000.0,
