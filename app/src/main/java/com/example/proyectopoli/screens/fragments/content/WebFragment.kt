@@ -71,12 +71,14 @@ fun WebFragment() {
 
             Spacer(modifier = Modifier.height(40.dp))
 
-            // Campo de entrada de URL
+            // Variable que almacena la URL digitada
             var url by remember { mutableStateOf("") }
+
+            // Obtiene el contexto actual de la aplicación para lanzar el Intent de navegación
             val context = LocalContext.current
 
 
-
+            // Campo de entrada de URL y personalización
             OutlinedTextField(
                 value = url,
                 onValueChange = { url = it },
@@ -95,22 +97,33 @@ fun WebFragment() {
                     unfocusedTextColor = Color.Black,
                     cursorColor = Color.Black),
 
+                /*
+                * FUNCIONALIDAD DE LA BARRA DE NAVEGACIÓN WEB
+                */
+
+                // Configura el teclado del usuario para realizar la acción "IR" cuando presione Enter
                 keyboardOptions = KeyboardOptions.Default.copy(
                     imeAction = ImeAction.Go
                 ),
 
+                // Define el comportamiento del botón Enter cuando el usuario lo presione
                 keyboardActions = KeyboardActions(
 
                     onGo = {
+
+                        // Se asigna el prefijo HTTP:// en caso de no tenerlo en la URL digitada
                         val fixedUrl = if (!url.startsWith("http://") && !url.startsWith("https://")) {
                             "http://$url"
                         }
                         else url
+
+                        // Se crea una Intent para abrir la URL en el navegador predeterminado del usuario
                         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(fixedUrl))
                         context.startActivity(intent)
                     }
                 ),
 
+                // Icono de eliminar texto de búsqueda
                 trailingIcon = {
                     if (url.isNotEmpty()) {
                         IconButton(onClick = { url = "" }) {
