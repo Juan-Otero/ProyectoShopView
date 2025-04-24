@@ -18,12 +18,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import com.example.proyectopoli.model.ProductRepository
 import com.example.proyectopoli.ui.theme.BlackButton
 
 @Composable
-@Preview
-fun BuscarFragment() {
+fun BuscarFragment(navController: NavController) {
     var searchQuery by remember { mutableStateOf("") }
+    val allProduct = ProductRepository.getAllProducts()
 
     // Barra superior de fragment Item
     Scaffold(
@@ -90,13 +92,15 @@ fun BuscarFragment() {
             ) {
 
                 // Filtrado para mostrar solo los productos buscados
-                val filteredProducts = getMockFeaturedProducts().filter { product ->
-                    product.name.contains(searchQuery, ignoreCase = true)
+                val filteredProducts = allProduct.filter { product ->
+                    product.prodName.contains(searchQuery, ignoreCase = true)
                 }
 
                 // Lista de productos de prueba
                 items(filteredProducts) { product ->
-                    ProductCard(product)
+                    ProductCard(product = product, onClick = {
+                        navController.navigate("item/${product.prodId}")
+                    })
                 }
             }
         }
