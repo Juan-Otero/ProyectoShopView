@@ -5,7 +5,9 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowBackIos
@@ -45,9 +47,9 @@ fun ItemFragment() {
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
+                .verticalScroll(rememberScrollState())
                 .background(Color.White),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center,
         ) {
 
             // Espacios para ajustar la informacion del producto (Imagen, Descripción, Acciones)
@@ -59,6 +61,7 @@ fun ItemFragment() {
             ActionButtons()
             Spacer(modifier = Modifier.height(80.dp))
             VisitLink()
+            Spacer(modifier = Modifier.height(30.dp)) // Espacio final para evitar recorte
         }
     }
 }
