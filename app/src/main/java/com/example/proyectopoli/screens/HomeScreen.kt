@@ -25,6 +25,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.navigation.compose.rememberNavController
 import com.example.proyectopoli.navigation.ContentNavigation
 import com.example.proyectopoli.screens.fragments.content.menu.MenuFragment
 import kotlinx.coroutines.launch
@@ -85,7 +86,7 @@ fun HomeScreen() {
                     .padding(paddingValues),
                 color = MaterialTheme.colorScheme.background
             ) {
-                ContentNavigation(selectedOption = selectedOption)
+                ContentNavigation(selectedOption = selectedOption, navController = rememberNavController())
             }
         }
     }

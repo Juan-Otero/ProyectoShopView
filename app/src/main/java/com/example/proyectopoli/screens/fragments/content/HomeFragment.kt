@@ -8,17 +8,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.*
-import androidx.compose.material3.AlertDialogDefaults.containerColor
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -26,16 +22,18 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.proyectopoli.R
+import com.example.proyectopoli.model.Category
+import com.example.proyectopoli.model.Product
+import com.example.proyectopoli.model.ProductRepository
 import com.example.proyectopoli.ui.theme.BlackButton
-import com.example.proyectopoli.ui.theme.BlueButton
 import java.text.NumberFormat
 import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-@Preview
-fun HomeFragment() {
+fun HomeFragment(navController: NavController) {
 
     // Barra superior con ícono de menú y título
     Scaffold(
@@ -85,11 +83,18 @@ fun HomeFragment() {
 
             Spacer(modifier = Modifier.height(15.dp))
 
+            val categories = listOf(
+                Category.CELULARES,
+                Category.LAPTOPS,
+                Category.TABLETS,
+                Category.ACCESORIOS
+            )
+
             LazyRow(
                 contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                items(getMockCategories()) { category ->
+                items(categories) { category ->
                     CategoryCard(category)
                 }
             }
@@ -110,30 +115,15 @@ fun HomeFragment() {
                 contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                items(getMockFeaturedProducts()) { product ->
-                    ProductCard(product)
+                items(ProductRepository.getFeaturedProduct()) { product ->
+                    ProductCard(product) {
+                        navController.navigate("item/${product.prodId}")
+                    }
                 }
             }
         }
     }
 }
-
-data class Product(val name: String, val price: Int, val category: Category, val imageResId: Int)
-data class Category(val name: String)
-
-fun getMockFeaturedProducts() = listOf(
-    Product("Iphone 16 Pro", 5800000, Category("Celulares"),R.drawable.iphone_16_pro),
-    Product("Lenovo Legion", 7200000, Category("Laptops"),R.drawable.lenovo_legion),
-    Product("Ipad 3ra Pro", 2100000, Category("Tablets"),R.drawable.ipad_pro),
-    Product("Xiaomi Redmi Watch 3", 478000, Category("Accesorios"),R.drawable.xiaomi_smartwatch)
-)
-
-fun getMockCategories() = listOf(
-    Category("Celulares"),
-    Category("Laptops"),
-    Category("Accesorios"),
-    Category("Tablets")
-)
 
 
 @Composable
@@ -164,7 +154,7 @@ fun CategoryCard(category: Category) {
                 modifier = Modifier.fillMaxSize()
             ) {
                 Text(
-                    text = category.name,
+                    text = category.displayName,
                     fontWeight = FontWeight.Medium,
                     fontSize = 18.sp,
                     color = Color.White
@@ -175,7 +165,7 @@ fun CategoryCard(category: Category) {
 }
 
 @Composable
-fun ProductCard(product: Product) {
+fun ProductCard(product: Product, onClick: () -> Unit) {
     Card(
         modifier = Modifier
             .width(176.dp)
@@ -191,7 +181,7 @@ fun ProductCard(product: Product) {
             verticalArrangement = Arrangement.SpaceEvenly
         ) {
             Text(
-                product.name,
+                product.prodName,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.Black,
@@ -199,15 +189,15 @@ fun ProductCard(product: Product) {
             )
 
             Image(
-                painter = painterResource(id = product.imageResId), // eemplaza con tu imagen real
-                contentDescription = product.name,
+                painter = painterResource(id = product.imageResIds.firstOrNull() ?: R.drawable.logo_shopview),
+                contentDescription = product.prodDescription,
                 modifier = Modifier
                     .size(100.dp)
                     .clip(RoundedCornerShape(15))
             )
 
             Text(
-                formatPrice(product.price),
+                formatPrice(product.prodPrice),
                 color = Color.DarkGray,
                 fontSize = 18.sp
             )
@@ -215,7 +205,9 @@ fun ProductCard(product: Product) {
     }
 }
 
-fun formatPrice(price: Int): String {
+fun formatPrice(price: Double): String {
     val format = NumberFormat.getNumberInstance(Locale("es", "CO"))
+    format.minimumFractionDigits = 0
+    format.maximumFractionDigits = 0
     return "$${format.format(price)}"
 }
