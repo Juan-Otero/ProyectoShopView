@@ -31,7 +31,8 @@ import com.example.proyectopoli.R
 import com.example.proyectopoli.ui.theme.BlackButton
 import com.example.proyectopoli.ui.theme.BlueButton
 import com.example.proyectopoli.ui.theme.BlueTopBar
-
+import com.example.proyectopoli.screens.components.ImageCarousel
+import com.example.proyectopoli.screens.components.VideoPlayer
 
 // Vista general del fragmento y fijación de la barra superior
 @Preview
@@ -106,43 +107,29 @@ fun TopBar() {
 // Componente de las imagenes y videos del producto con las flechas para desplazarlas
 @Composable
 fun ProductImage() {
+    val images = listOf(
+        R.drawable.iphone_16_pro,
+        R.drawable.lenovo_legion,
+        R.drawable.ipad_pro
+    )
 
-    // Componente que encierra la imagen del producto y los botones
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 30.dp)
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.padding(top = 10.dp)
     ) {
-        // Botón para desplazar a la izquierda
-        IconButton(
-            onClick = { /* Acción para ver imagen anterior */ },
-            modifier = Modifier.align(Alignment.CenterStart)
-        ) {
-            Icon(Icons.Default.ArrowBackIos, contentDescription = "Anterior", tint = BlueButton)
-        }
+        ImageCarousel(images = images)
 
-        // Imagen del producto
-        Image(
-            painter = painterResource(id = R.drawable.product_image),
-            contentDescription = "Imagen del producto",
+        Spacer(modifier = Modifier.height(20.dp))
+
+        VideoPlayer(
+            videoResId = R.raw.video_test,
             modifier = Modifier
-                .size(220.dp)
-                .clip(RoundedCornerShape(40.dp))
-                .background(Color(0xFFF0F0F0)),
-            contentScale = ContentScale.Crop
+                .fillMaxWidth()
+                .height(250.dp)
+                .padding(horizontal = 16.dp)
         )
-
-        // Botón para desplazarse a la derecha
-        IconButton(
-            onClick = { /* Acción para ver siguiente imagen */ },
-            modifier = Modifier.align(Alignment.CenterEnd)
-        ) {
-            Icon(Icons.Default.ArrowForwardIos, contentDescription = "Siguiente", tint = BlueButton)
-        }
     }
 }
-
 
 // Componente de informacion detallada del producto
 @Composable
