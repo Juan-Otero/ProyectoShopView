@@ -1,6 +1,8 @@
 package com.example.proyectopoli.screens.fragments.content
 
+import android.content.Intent
 import android.inputmethodservice.Keyboard.Row
+import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -31,6 +33,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -70,6 +73,9 @@ fun WebFragment() {
 
             // Campo de entrada de URL
             var url by remember { mutableStateOf("") }
+            val context = LocalContext.current
+
+
 
             OutlinedTextField(
                 value = url,
@@ -88,6 +94,22 @@ fun WebFragment() {
                     focusedTextColor = Color.Black,
                     unfocusedTextColor = Color.Black,
                     cursorColor = Color.Black),
+
+                keyboardOptions = KeyboardOptions.Default.copy(
+                    imeAction = ImeAction.Go
+                ),
+
+                keyboardActions = KeyboardActions(
+
+                    onGo = {
+                        val fixedUrl = if (!url.startsWith("http://") && !url.startsWith("https://")) {
+                            "http://$url"
+                        }
+                        else url
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(fixedUrl))
+                        context.startActivity(intent)
+                    }
+                ),
 
                 trailingIcon = {
                     if (url.isNotEmpty()) {
