@@ -14,7 +14,7 @@ object ProductRepository{
                 1001,
                 "Iphone 15 Pro",
                 "Apple | Iphone 15",
-                3800000.0,
+                4899000.0,
                 Category.CELULARES,
                 "https://support.apple.com/es-lamr/111829",
                 listOf(
@@ -29,7 +29,7 @@ object ProductRepository{
                 1002,
                 "Motorola Edge 50 Fusion",
                 "Smartphone Motorola",
-                2000000.0,
+                998000.0,
                 Category.CELULARES,
                 "https://www.motorola.com.co/motorola-edge-50-fusion-256-gb/p",
                 listOf(
@@ -44,7 +44,7 @@ object ProductRepository{
                 1003,
                 "Xiaomi REDMI Note 14",
                 "Xiaomi | REDMI",
-                890000.0,
+                860000.0,
                 Category.CELULARES,
                 "https://www.mi.com/co/product/redmi-note-14/",
                 listOf(
@@ -59,7 +59,7 @@ object ProductRepository{
                 1004,
                 "Samsung Galaxy A36",
                 "Samsung | 5G 128GB",
-                1580000.0,
+                1540000.0,
                 Category.CELULARES,
                 "https://www.samsung.com/co/smartphones/galaxy-a/galaxy-a36-5g-awesome-black-256gb-sm-a366ezkgltc/",
                 listOf(
@@ -76,7 +76,7 @@ object ProductRepository{
                 2001,
                 "Samsung S6 Lite 128GB",
                 "Samsung | Oxford Gray",
-                1580000.0,
+                940000.0,
                 Category.TABLETS,
                 "https://www.samsung.com/co/tablets/galaxy-tab-s/galaxy-tab-s6-lite--2024--mint-128gb-sm-p620nlghcoo/",
                 listOf(
@@ -91,7 +91,7 @@ object ProductRepository{
                 2002,
                 "Honor Pad X8a 128GB",
                 "Tablet | Honor 128GB",
-                1580000.0,
+                635000.0,
                 Category.TABLETS,
                 "https://www.honor.com/co/tablets/honor-pad-x8/",
                 listOf(
@@ -106,7 +106,7 @@ object ProductRepository{
                 2003,
                 "Ipad 10.9' 10ma Gen",
                 "Apple | Ipad",
-                1580000.0,
+                1670000.0,
                 Category.TABLETS,
                 "https://support.apple.com/es-co/111840",
                 listOf(
@@ -122,7 +122,7 @@ object ProductRepository{
                 3001,
                 "HP 15.6' AMD Ryzen 7",
                 "HP | Pavilion",
-                1580000.0,
+                2449000.0,
                 Category.LAPTOPS,
                 "https://www.hp.com/co-es/shop/portatil-hp-pavilion-15-eh3000la-80m53la.html",
                 listOf(
@@ -137,7 +137,7 @@ object ProductRepository{
                 3002,
                 "Lenovo IdeaPad Slim 3",
                 "Lenovo | Idepad",
-                1580000.0,
+                2380000.0,
                 Category.LAPTOPS,
                 "https://www.lenovo.com/co/es/p/portatiles/ideapad/ideapad-serie-s/ideapad-slim-3-gen-8-15-inch-amd/82xq005xlm",
                 listOf(
@@ -152,7 +152,7 @@ object ProductRepository{
                 3003,
                 "Acer Aspire 15.6' C7SG",
                 "ACER | Aspire",
-                1580000.0,
+                1300000.0,
                 Category.LAPTOPS,
                 "https://www.acer.com/ar-es/laptops/aspire/aspire-7-intel",
                 listOf(
@@ -167,7 +167,7 @@ object ProductRepository{
                 3004,
                 "Asus Vivobook Go 15.6'",
                 "Asus | Vivobook",
-                1580000.0,
+                2100000.0,
                 Category.LAPTOPS,
                 "https://www.asus.com/co/laptops/for-home/vivobook/vivobook-15-x1502/",
                 listOf(
@@ -183,7 +183,7 @@ object ProductRepository{
                 4001,
                 "Huawei GT5 Pro",
                 "Huawei | Smartwatch",
-                1580000.0,
+                1030000.0,
                 Category.ACCESORIOS,
                 "https://consumer.huawei.com/co/wearables/watch-gt5-pro/",
                 listOf(
@@ -198,7 +198,7 @@ object ProductRepository{
                 4002,
                 "Samsung Galaxy Buds3 Pro",
                 "Audifonos In Ear",
-                1580000.0,
+                640000.0,
                 Category.ACCESORIOS,
                 "https://www.samsung.com/co/audio-sound/galaxy-buds/galaxy-buds3-pro-silver-sm-r630nzaalta/",
                 listOf(
@@ -212,7 +212,7 @@ object ProductRepository{
                 4003,
                 "HyperX Quadcast S",
                 "HyperX | Microfono",
-                1580000.0,
+                610000.0,
                 Category.ACCESORIOS,
                 "https://row.hyperx.com/es/products/hyperx-quadcast-s-usb-microphone?variant=40910061043917",
                 listOf(
