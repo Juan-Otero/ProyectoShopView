@@ -93,8 +93,7 @@ fun TopBar(navController: NavController) {
                         "ShopView",
                         fontWeight = FontWeight.Bold,
                         color = Color.White,
-                        fontStyle = FontStyle.Italic,
-                        modifier = Modifier.clickable { navController.navigate("home") }
+                        fontStyle = FontStyle.Italic
                         )
                     Spacer(modifier = Modifier.width(40.dp))
                 }

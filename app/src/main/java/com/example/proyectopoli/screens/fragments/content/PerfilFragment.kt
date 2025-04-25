@@ -70,8 +70,7 @@ fun PerfilFragment(navController: NavController) {
                         text = "ShopView",
                         color = Color.White,
                         fontSize = 22.sp,
-                        fontWeight = FontWeight.Medium,
-                        modifier = Modifier.clickable { navController.navigate("home") }
+                        fontWeight = FontWeight.Medium
                     )
                 }
             }
