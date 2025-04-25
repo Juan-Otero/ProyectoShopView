@@ -1,5 +1,7 @@
 package com.example.proyectopoli.screens.fragments.content
 
+import android.content.Context
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -12,30 +14,34 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.proyectopoli.R
 import com.example.proyectopoli.ui.theme.BlueButton
 
-// Pantalla de Inicio de Sesion
 @Composable
 fun LoginFragment(navController: NavController) {
+    val context = LocalContext.current
+
+    var email by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+    var errorMessage by remember { mutableStateOf<String?>(null) }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(
                 brush = Brush.verticalGradient(
-                    listOf(
-                        Color(0xFF2A3B65),
-                        Color(0xFFD1F8EF)
-                    )
+                    listOf(Color(0xFF2A3B65), Color(0xFFD1F8EF))
                 )
             )
-            .background(Color(0xFF000000).copy(alpha = 0.7f)),
+            .background(Color.Black.copy(alpha = 0.7f)),
         contentAlignment = Alignment.Center
     ) {
         Column(
@@ -44,8 +50,6 @@ fun LoginFragment(navController: NavController) {
                 .padding(14.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-
-            // Logo de la aplicacion
             Image(
                 painter = painterResource(id = R.drawable.logo_shopview),
                 contentDescription = "Logo",
@@ -56,22 +60,49 @@ fun LoginFragment(navController: NavController) {
 
             Spacer(modifier = Modifier.height(30.dp))
 
-            // Titulo de pantalla
             Text("Login", fontSize = 28.sp, fontWeight = FontWeight.Bold, color = Color.White)
 
             Spacer(modifier = Modifier.height(30.dp))
 
-            // Campos de texto para iniciar sesión
-            CustomTextField(placeholder = "Email", isPassword = false)
+            CustomTextField(
+                placeholder = "Email",
+                isPassword = false,
+                value = email,
+                onValueChange = { email = it }
+            )
             Spacer(modifier = Modifier.height(20.dp))
-            CustomTextField(placeholder = "Contraseña", isPassword = true)
-            Spacer(modifier = Modifier.height(25.dp))
 
+            CustomTextField(
+                placeholder = "Contraseña",
+                isPassword = true,
+                value = password,
+                onValueChange = { password = it }
+            )
 
-            // Botón para iniciar sesión
+            Spacer(modifier = Modifier.height(20.dp))
+
+            errorMessage?.let {
+                Text(it, color = Color.Red, fontSize = 14.sp)
+                Spacer(modifier = Modifier.height(10.dp))
+            }
+
             Button(
                 onClick = {
-                    navController.navigate("home")
+                    if (email.isBlank() || password.isBlank()) {
+                        errorMessage = "Por favor ingresa tu email y contraseña"
+                        return@Button
+                    }
+
+                    val prefs = context.getSharedPreferences("usuario", Context.MODE_PRIVATE)
+                    val savedEmail = prefs.getString("email", null)
+                    val savedPassword = prefs.getString("password", null)
+
+                    if (email == savedEmail && password == savedPassword) {
+                        Toast.makeText(context, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show()
+                        navController.navigate("home")
+                    } else {
+                        errorMessage = "Credenciales incorrectas"
+                    }
                 },
                 colors = ButtonDefaults.buttonColors(containerColor = BlueButton),
                 modifier = Modifier.width(200.dp)
@@ -81,7 +112,6 @@ fun LoginFragment(navController: NavController) {
 
             Spacer(modifier = Modifier.height(30.dp))
 
-            // Opción para ir a la pantalla de registro en caso de no tener una cuenta creada
             Row {
                 Text("¿No tienes una cuenta?", color = Color.White, fontSize = 16.sp)
                 Spacer(modifier = Modifier.width(8.dp))
@@ -90,7 +120,9 @@ fun LoginFragment(navController: NavController) {
                     color = BlueButton,
                     fontWeight = FontWeight.Bold,
                     fontSize = 16.sp,
-                    modifier = Modifier.clickable { navController.navigate("registro") }
+                    modifier = Modifier.clickable {
+                        navController.navigate("registro")
+                    }
                 )
             }
         }
