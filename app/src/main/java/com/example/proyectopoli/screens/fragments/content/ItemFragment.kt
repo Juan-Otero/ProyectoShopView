@@ -51,6 +51,7 @@ fun ItemFragment(product: Product, navController: NavController) {
             Spacer(modifier = Modifier.height(20.dp))
             ProductInfo(product)
             Spacer(modifier = Modifier.height(50.dp))
+            ActionButtons()
             Spacer(modifier = Modifier.height(80.dp))
             VisitLink(product.officialUrl)
             Spacer(modifier = Modifier.height(30.dp)) // Espacio final para evitar recorte
