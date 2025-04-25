@@ -16,10 +16,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 
 @Composable
-@Preview
-fun PerfilFragment() {
+fun PerfilFragment(navController: NavController) {
 
     // Contenedor de todos los elementos del fragment
     Box(
@@ -54,7 +54,7 @@ fun PerfilFragment() {
                         tint = Color.White,
                         modifier = Modifier
                             .size(26.dp)
-                            .clickable { /* Navegar hacia atrás */ }
+                            .clickable { navController.popBackStack() }
                     )
 
                     // Texto ShopView con estrella
@@ -70,7 +70,8 @@ fun PerfilFragment() {
                         text = "ShopView",
                         color = Color.White,
                         fontSize = 22.sp,
-                        fontWeight = FontWeight.Medium
+                        fontWeight = FontWeight.Medium,
+                        modifier = Modifier.clickable { navController.navigate("home") }
                     )
                 }
             }

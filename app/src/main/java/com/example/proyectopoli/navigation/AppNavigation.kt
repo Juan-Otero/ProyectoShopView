@@ -26,19 +26,19 @@ fun AppNavigation(navController: NavHostController) {
 
         // Rutas de navegación para el menú lateral
         composable("inicio"){
-            InicioFragment()
+            InicioFragment(navController)
         }
         composable("login"){
-            LoginFragment()
+            LoginFragment(navController)
         }
         composable("registro"){
-            RegistroFragment()
+            RegistroFragment(navController)
         }
         composable("home") {
             HomeFragment(navController)
         }
         composable("perfil"){
-            PerfilFragment()
+            PerfilFragment(navController)
         }
         composable("buscar") {
             BuscarFragment(navController)

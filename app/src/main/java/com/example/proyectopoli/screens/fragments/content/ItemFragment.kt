@@ -89,7 +89,13 @@ fun TopBar(navController: NavController) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text("ShopView", fontWeight = FontWeight.Bold, color = Color.White, fontStyle = FontStyle.Italic)
+                    Text(
+                        "ShopView",
+                        fontWeight = FontWeight.Bold,
+                        color = Color.White,
+                        fontStyle = FontStyle.Italic,
+                        modifier = Modifier.clickable { navController.navigate("home") }
+                        )
                     Spacer(modifier = Modifier.width(40.dp))
                 }
             }

@@ -26,12 +26,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.proyectopoli.R
 import com.example.proyectopoli.ui.theme.BlueButton
 
 @Composable
-@Preview
-fun InicioFragment() {
+fun InicioFragment(navController: NavController) {
 
     // Caja que contiene todos los elementos de la interfaz
     Box(
@@ -75,7 +75,7 @@ fun InicioFragment() {
 
             // Botón para iniciar sesión
             Button(
-                onClick = { /* Acción de iniciar sesión */ },
+                onClick = { navController.navigate("login") },
                 colors = ButtonDefaults.buttonColors(containerColor = Color.White),
                 modifier = Modifier
                     .width(300.dp)
@@ -88,7 +88,7 @@ fun InicioFragment() {
 
             // Botón para registrarse en la aplicación
             Button(
-                onClick = { /* Acción de crear cuenta */ },
+                onClick = { navController.navigate("registro") },
                 colors = ButtonDefaults.buttonColors(containerColor = Color.White),
                 modifier = Modifier
                     .width(300.dp)

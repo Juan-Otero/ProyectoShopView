@@ -43,13 +43,13 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.proyectopoli.R
 import com.example.proyectopoli.ui.theme.BlackButton
 import com.example.proyectopoli.ui.theme.BlueButton
 
 @Composable
-@Preview
-fun RegistroFragment() {
+fun RegistroFragment(navController: NavController) {
 
     // Caja que contiene todos los elementos de la interfaz
     Box(
@@ -121,7 +121,7 @@ fun RegistroFragment() {
 
             // Botón para crear la cuenta
             Button(
-                onClick = { /* Acción de registro */ },
+                onClick = { navController.navigate("login") },
                 colors = ButtonDefaults.buttonColors(containerColor = BlueButton),
                 modifier = Modifier.width(160.dp)
             ) {
@@ -145,7 +145,7 @@ fun RegistroFragment() {
                     fontWeight = FontWeight.Bold,
                     fontSize = 16.sp,
 
-                    modifier = Modifier.clickable { /* Navegar al login */ }
+                    modifier = Modifier.clickable { navController.navigate("login") }
                 )
             }
         }

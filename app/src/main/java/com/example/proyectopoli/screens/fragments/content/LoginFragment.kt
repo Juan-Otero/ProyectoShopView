@@ -17,13 +17,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.proyectopoli.R
 import com.example.proyectopoli.ui.theme.BlueButton
 
 // Pantalla de Inicio de Sesion
 @Composable
-@Preview
-fun LoginFragment() {
+fun LoginFragment(navController: NavController) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -70,7 +70,9 @@ fun LoginFragment() {
 
             // Botón para iniciar sesión
             Button(
-                onClick = { /* Acción de login */ },
+                onClick = {
+                    navController.navigate("home")
+                },
                 colors = ButtonDefaults.buttonColors(containerColor = BlueButton),
                 modifier = Modifier.width(200.dp)
             ) {
@@ -88,7 +90,7 @@ fun LoginFragment() {
                     color = BlueButton,
                     fontWeight = FontWeight.Bold,
                     fontSize = 16.sp,
-                    modifier = Modifier.clickable { /* Navegar a registro */ }
+                    modifier = Modifier.clickable { navController.navigate("registro") }
                 )
             }
         }
