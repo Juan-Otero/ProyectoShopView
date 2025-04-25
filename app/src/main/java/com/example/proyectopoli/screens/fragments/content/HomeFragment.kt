@@ -10,6 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -36,7 +37,7 @@ fun HomeFragment(navController: NavController) {
 
     // Barra superior con ícono de menú y título
     Scaffold(
-        topBar = { TopBar() }
+        topBar = { TopBar(navController) }
     ) { paddingValues ->
         Column(
             modifier = Modifier
@@ -171,7 +172,8 @@ fun ProductCard(product: Product, onClick: () -> Unit) {
         modifier = Modifier
             .width(176.dp)
             .height(220.dp)
-            .clip(RoundedCornerShape(20)),
+            .clip(RoundedCornerShape(20))
+            .clickable(onClick = onClick),
         colors = CardDefaults.cardColors(containerColor = Color(0xFFE0E0E0))
     ) {
         Column(
