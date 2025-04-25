@@ -225,6 +225,10 @@ object ProductRepository{
         )
     }
 
+    fun getById(productId: Int): Product? {
+        return getAllProducts().find { it.prodId == productId }
+    }
+
     // Funcion que retorna los productos correspondientes a determinada categoría
     fun getCategories(): List<Category> {
         return listOf(
