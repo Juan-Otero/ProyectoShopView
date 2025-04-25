@@ -36,18 +36,17 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.proyectopoli.R
 import com.example.proyectopoli.ui.theme.BlackButton
 
 // PANTALLA PARA NAVEGACIÓN WEB
 @Composable
-@Preview
-fun WebFragment() {
+fun WebFragment(navController: NavController) {
     Scaffold(
-        topBar = { TopBar() } // Reutilización de la barra superior
+        topBar = { TopBar(navController) } // Reutilizas tu barra superior
     ) { paddingValues ->
         Column(
             modifier = Modifier

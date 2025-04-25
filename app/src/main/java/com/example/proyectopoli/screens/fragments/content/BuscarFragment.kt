@@ -30,7 +30,7 @@ fun BuscarFragment(navController: NavController) {
 
     // Barra superior de fragment Item
     Scaffold(
-        topBar = { TopBar() }
+        topBar = { TopBar(navController) }
     ) { paddingValues ->
         Column(
             modifier = Modifier

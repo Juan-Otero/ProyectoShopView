@@ -30,18 +30,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.proyectopoli.ui.theme.BlackButton
 
 @Composable
-@Preview
-fun HistorialFragment() {
+fun HistorialFragment(navController: NavController) {
 
     // Reutilización de la barra superior del fragment Item
     Scaffold(
-        topBar = { TopBar() }
+        topBar = { TopBar(navController) }
     ) { paddingValues ->
         Column(
             modifier = Modifier

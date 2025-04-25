@@ -36,6 +36,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.proyectopoli.ui.theme.BlackButton
 import com.example.proyectopoli.ui.theme.BlueButton
 import com.example.proyectopoli.ui.theme.RedButton
@@ -45,13 +46,12 @@ import java.util.Locale
 // Lista de los productos agregados
 data class CartProduct(val product: String, val price: Int)
 
-@Preview
 @Composable
-fun CarritoFragment() {
+fun CarritoFragment(navController: NavController) {
 
     // Reutilización de la barra superior del FragmentItem
     Scaffold(
-        topBar = { TopBar() }
+        topBar = { TopBar(navController) }
     ) { paddingValues ->
         Column(
             modifier = Modifier
