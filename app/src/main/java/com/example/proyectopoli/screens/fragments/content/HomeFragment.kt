@@ -1,6 +1,9 @@
 package com.example.proyectopoli.screens.fragments.content
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -16,9 +19,15 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -47,14 +56,14 @@ fun HomeFragment(navController: NavController) {
                 .background(
                     brush = Brush.verticalGradient(
                         listOf(
-                            Color(0xFFE0E0E0),
-                            Color(0xFF8B8B8B)
+                            Color(0xFFD4D8DE),
+                            Color(0xFFEEEEEE)
                         )
                     )
                 )
         ) {
 
-            Spacer(modifier = Modifier.height(30.dp))
+            Spacer(modifier = Modifier.height(20.dp))
 
             // Logo principal del catalogo
             Box(
@@ -62,15 +71,15 @@ fun HomeFragment(navController: NavController) {
                 contentAlignment = Alignment.Center
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.logo_shopview),
+                    painter = painterResource(id = R.drawable.icono_app),
                     contentDescription = "Logo",
                     modifier = Modifier
-                        .size(180.dp)
+                        .size(120.dp)
                         .clip(RoundedCornerShape(35))
                 )
             }
 
-            Spacer(modifier = Modifier.height(50.dp))
+            Spacer(modifier = Modifier.height(20.dp))
 
 
             // Sección: Categorías
@@ -82,8 +91,9 @@ fun HomeFragment(navController: NavController) {
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
 
-            Spacer(modifier = Modifier.height(15.dp))
+            Spacer(modifier = Modifier.height(25.dp))
 
+            // Lista de las categorías disponibles
             val categories = listOf(
                 Category.CELULARES,
                 Category.LAPTOPS,
@@ -91,19 +101,28 @@ fun HomeFragment(navController: NavController) {
                 Category.ACCESORIOS
             )
 
+            var categorySelected by remember { mutableStateOf<Category?> (null) }
+
+            // Contenedor de los botones de filtrado por categoria
             LazyRow(
                 contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 items(categories) { category ->
-                    CategoryCard(category)
+                    CategoryCard(
+                        category = category,
+                        isSelected = categorySelected == category,
+                        onClick = {
+                            categorySelected = if (categorySelected == category) null else category
+                        }
+                    )
                 }
             }
 
             Spacer(modifier = Modifier.height(50.dp))
 
             Text(
-                text = "Destacados",
+                text = categorySelected?.displayName ?: "Destacados",
                 fontSize = 26.sp,
                 fontWeight = FontWeight.Bold,
                 color = BlackButton,
@@ -112,11 +131,22 @@ fun HomeFragment(navController: NavController) {
 
             Spacer(modifier = Modifier.height(15.dp))
 
-            LazyRow(
-                contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
-                horizontalArrangement = Arrangement.spacedBy(12.dp)
+            // Funcionalidad de filtrado de productos
+            val filteredProducts = if (categorySelected == null) {
+                ProductRepository.getFeaturedProduct()
+            } else {
+                ProductRepository.getAllProducts().filter { it.prodCategory == categorySelected }
+            }
+
+            // Contenedor de producctos
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(2),
+                contentPadding = PaddingValues(16.dp),
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp),
+                modifier = Modifier.fillMaxHeight()
             ) {
-                items(ProductRepository.getFeaturedProduct()) { product ->
+                items(filteredProducts) { product ->
                     ProductCard(product) {
                         navController.navigate("item/${product.prodId}")
                     }
@@ -128,39 +158,41 @@ fun HomeFragment(navController: NavController) {
 
 // Botones de las categoría de productos
 @Composable
-fun CategoryCard(category: Category) {
+fun CategoryCard(category: Category, isSelected: Boolean, onClick: () -> Unit) {
+    val backgroundBrush = if (isSelected) {
+        Brush.horizontalGradient(
+            listOf(
+                Color(0xFF1C6274),
+                Color(0xFF2196F3)
+            )
+        )
+    } else {
+        SolidColor(Color(0xFF1565C0))
+    }
+
     Card(
         modifier = Modifier
             .width(120.dp)
-            .height(60.dp),
+            .height(60.dp)
+            .clickable { onClick() },
         shape = RoundedCornerShape(50),
-        colors = CardDefaults.cardColors(containerColor = Color.Transparent),
-        elevation = CardDefaults.cardElevation(4.dp)
+        colors = CardDefaults.cardColors(
+            containerColor = Color.Transparent
+        ),
+        elevation = CardDefaults.cardElevation(if (isSelected) 8.dp else 4.dp),
     ) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(
-                    Brush.verticalGradient(
-                        colors = listOf(
-                            Color(0xFF578FCA),
-                            Color(0xFF2A3B65)
-                        )
-                    )
-                )
+                .background(backgroundBrush, shape = RoundedCornerShape(50)),
+            contentAlignment = Alignment.Center
         ) {
-            // Texto centrado
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = Modifier.fillMaxSize()
-            ) {
-                Text(
-                    text = category.displayName,
-                    fontWeight = FontWeight.Medium,
-                    fontSize = 18.sp,
-                    color = Color.White
-                )
-            }
+            Text(
+                text = category.displayName,
+                fontWeight = if (isSelected) FontWeight.Medium else FontWeight.Normal,
+                fontSize = 18.sp,
+                color = Color.White
+            )
         }
     }
 }
@@ -170,11 +202,12 @@ fun CategoryCard(category: Category) {
 fun ProductCard(product: Product, onClick: () -> Unit) {
     Card(
         modifier = Modifier
-            .width(176.dp)
+            .width(166.dp)
             .height(220.dp)
-            .clip(RoundedCornerShape(20))
-            .clickable(onClick = onClick),
-        colors = CardDefaults.cardColors(containerColor = Color(0xFFE0E0E0))
+            .clip(RoundedCornerShape(20.dp))
+            .clickable(onClick = onClick)
+            .shadow(elevation = 8.dp, shape = RoundedCornerShape(20.dp)),
+        colors = CardDefaults.cardColors(containerColor = Color(0xFFFFFFFF))
     ) {
         Column(
             modifier = Modifier
@@ -185,7 +218,7 @@ fun ProductCard(product: Product, onClick: () -> Unit) {
         ) {
             Text(
                 product.prodName,
-                fontSize = 20.sp,
+                fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.Black,
                 textAlign = TextAlign.Center
@@ -195,14 +228,14 @@ fun ProductCard(product: Product, onClick: () -> Unit) {
                 painter = painterResource(id = product.imageResIds.firstOrNull() ?: R.drawable.logo_shopview),
                 contentDescription = product.prodDescription,
                 modifier = Modifier
-                    .size(100.dp)
+                    .size(110.dp)
                     .clip(RoundedCornerShape(15))
             )
 
             Text(
                 formatPrice(product.prodPrice),
                 color = Color.DarkGray,
-                fontSize = 18.sp
+                fontSize = 16.sp
             )
         }
     }
