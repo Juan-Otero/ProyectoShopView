@@ -1,4 +1,7 @@
 package com.example.proyectopoli.screens.fragments.content
+
+import android.content.Context
+import android.widget.Toast
 import androidx.compose.ui.draw.clip
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -12,14 +15,30 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.proyectopoli.model.UserProfile
 
 @Composable
 fun PerfilFragment(navController: NavController) {
+
+    val context = LocalContext.current
+    val prefs = context.getSharedPreferences("usuario", Context.MODE_PRIVATE)
+
+    var userProfile by remember {
+        mutableStateOf(
+            UserProfile(
+                userName = prefs.getString("nombres", "") ?: "",
+                userLastName = prefs.getString("apellidos", "") ?: "",
+                userPhone = prefs.getString("telefono", "") ?: "",
+                userAddress = prefs.getString("direccion", "") ?: "",
+                userEmail = prefs.getString("email", "") ?: ""
+            )
+        )
+    }
 
     // Contenedor de todos los elementos del fragment
     Box(
@@ -100,26 +119,56 @@ fun PerfilFragment(navController: NavController) {
 
 
                 // Campos de texto de los datos del usuario
-                CustomProfileTextField("Nombres")
+                CustomProfileTextField(
+                    value = userProfile.userName,
+                    onValueChange = { userProfile = userProfile.copy(userName = it)},
+                    placeholder = "Nombres"
+                )
                 Spacer(modifier = Modifier.height(15.dp))
 
-                CustomProfileTextField("Apellidos")
+                CustomProfileTextField(
+                    value = userProfile.userLastName,
+                    onValueChange = { userProfile = userProfile.copy(userLastName = it)},
+                    placeholder = "Apellidos"
+                )
                 Spacer(modifier = Modifier.height(15.dp))
 
-                CustomProfileTextField("Telefono")
+                CustomProfileTextField(
+                    value = userProfile.userPhone,
+                    onValueChange = { userProfile = userProfile.copy(userPhone = it)},
+                    placeholder = "Teléfono"
+                )
                 Spacer(modifier = Modifier.height(15.dp))
 
-                CustomProfileTextField("Dirección")
+                CustomProfileTextField(
+                    value = userProfile.userAddress,
+                    onValueChange = { userProfile = userProfile.copy(userAddress = it)},
+                    placeholder = "Dirección"
+                )
                 Spacer(modifier = Modifier.height(15.dp))
 
-                CustomProfileTextField("Email")
+                CustomProfileTextField(
+                    value = userProfile.userEmail,
+                    onValueChange = { userProfile = userProfile.copy(userEmail = it)},
+                    placeholder = "Email"
+                )
 
                 Spacer(modifier = Modifier.height(50.dp))
 
 
                 // Botón para guardar los cambios realizados
                 Button(
-                    onClick = { /* Guardar datos */ },
+                    onClick = {
+                        val editor = prefs.edit()
+                        editor.putString("nombres", userProfile.userName)
+                        editor.putString("apellidos", userProfile.userLastName)
+                        editor.putString("telefono", userProfile.userPhone)
+                        editor.putString("direccion", userProfile.userAddress)
+                        editor.putString("email", userProfile.userEmail)
+                        editor.apply()
+
+                        Toast.makeText(context, "Datos guardados", Toast.LENGTH_SHORT).show()
+                    },
                     shape = RoundedCornerShape(50),
                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF3B68B2)),
                     modifier = Modifier
@@ -140,12 +189,11 @@ fun PerfilFragment(navController: NavController) {
 
 // Diseños personalizado para los campos de texto
 @Composable
-fun CustomProfileTextField(placeholder: String) {
-    var text by remember { mutableStateOf("") }
+fun CustomProfileTextField(value: String, onValueChange: (String) -> Unit, placeholder: String) {
 
     TextField(
-        value = text,
-        onValueChange = { text = it },
+        value = value,
+        onValueChange = onValueChange,
         placeholder = { Text(placeholder, color = Color.Gray) },
         singleLine = true,
         modifier = Modifier
