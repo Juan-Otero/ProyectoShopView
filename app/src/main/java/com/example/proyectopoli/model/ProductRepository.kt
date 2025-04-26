@@ -136,7 +136,7 @@ object ProductRepository{
             Product(
                 3002,
                 "Lenovo IdeaPad Slim 3",
-                "Lenovo | Idepad",
+                "Lenovo | Ideapad",
                 2380000.0,
                 Category.LAPTOPS,
                 "https://www.lenovo.com/co/es/p/portatiles/ideapad/ideapad-serie-s/ideapad-slim-3-gen-8-15-inch-amd/82xq005xlm",
