@@ -1,5 +1,6 @@
 package com.example.proyectopoli.screens.fragments.content
 
+import android.graphics.drawable.Icon
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -33,6 +34,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.proyectopoli.model.Order
 import com.example.proyectopoli.ui.theme.BlackButton
 
 @Composable
@@ -97,15 +99,37 @@ fun HistorialFragment(navController: NavController) {
 
                     // Lista de los pedidos realizados
                     val orders = listOf(
-                        Triple("#000000", "XX items", Icons.Default.Receipt),
-                        Triple("#111111", "XX items", Icons.Default.Receipt),
-                        Triple("#222222", "XX items", Icons.Default.Receipt),
-                        Triple("#333333", "XX items", Icons.Default.Receipt)
-
+                        Order(
+                            id = "39010",
+                            products = listOf(
+                                OrderProduct("Iphone 15 Pro", 4899000),
+                                OrderProduct("Lenovo | Ideapad", 2380000)
+                            )
+                        ),
+                        Order(
+                            id = "38201",
+                            products = listOf(
+                                OrderProduct("Acer Aspire 15.6' C7SG", 1300000),
+                                OrderProduct("Samsung Galaxy Buds3 Pro", 640000),
+                                OrderProduct("HyperX Quadcast S", 610000)
+                            )
+                        ),
+                        Order(
+                            id = "21803",
+                            products = listOf(
+                                OrderProduct("Honor Pad X8a 128GB", 635000)
+                            )
+                        )
                     )
 
-                    orders.forEach { (id, items, icon) ->
-                        OrderItemStyled(orderId = id, itemCount = items, icon = icon)
+                    orders.forEach { order ->
+                        OrderItemStyled(
+                            order = order,
+                            onClick = {
+                                // Aquí vamos a pasar el ID y también preparar la navegación con productos
+                                navController.navigate("pedido/${order.id}")
+                            }
+                        )
                         Spacer(modifier = Modifier.height(35.dp))
                     }
                 }
@@ -117,12 +141,12 @@ fun HistorialFragment(navController: NavController) {
 
 // Componente reutilizable para las cartas de cada pedido
 @Composable
-fun OrderItemStyled(orderId: String, itemCount: String, icon: ImageVector) {
+fun OrderItemStyled(order: Order, onClick: () -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .height(72.dp)
-            .clickable { /* Acción para revisar pedido */ },
+            .clickable { onClick() },
         shape = RoundedCornerShape(12.dp),
         colors = CardDefaults.cardColors(containerColor = Color(0xFFEEEEEE))
     ) {
@@ -134,7 +158,7 @@ fun OrderItemStyled(orderId: String, itemCount: String, icon: ImageVector) {
                 .padding(horizontal = 16.dp)
         ) {
             Icon(
-                imageVector = icon,
+                imageVector = Icons.Default.Receipt, // Ícono de pedido
                 contentDescription = "Ícono Pedido",
                 tint = Color.Black,
                 modifier = Modifier.size(24.dp)
@@ -146,13 +170,13 @@ fun OrderItemStyled(orderId: String, itemCount: String, icon: ImageVector) {
                 modifier = Modifier.weight(1f)
             ) {
                 Text(
-                    text = "Pedido $orderId",
+                    text = "Pedido ${order.id}",
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Light,
                     color = BlackButton
                 )
                 Text(
-                    text = itemCount,
+                    text = "${order.products.size} items",
                     fontWeight = FontWeight.Normal,
                     color = Color.DarkGray
                 )
