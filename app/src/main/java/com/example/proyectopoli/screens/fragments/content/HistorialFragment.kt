@@ -105,7 +105,14 @@ fun HistorialFragment(navController: NavController) {
                     )
 
                     orders.forEach { (id, items, icon) ->
-                        OrderItemStyled(orderId = id, itemCount = items, icon = icon)
+                        OrderItemStyled(
+                            orderId = id,
+                            itemCount = items,
+                            icon = icon,
+                            onClick = {
+                                navController.navigate("pedido/${id}")
+                            }
+                        )
                         Spacer(modifier = Modifier.height(35.dp))
                     }
                 }
@@ -117,12 +124,12 @@ fun HistorialFragment(navController: NavController) {
 
 // Componente reutilizable para las cartas de cada pedido
 @Composable
-fun OrderItemStyled(orderId: String, itemCount: String, icon: ImageVector) {
+fun OrderItemStyled(orderId: String, itemCount: String, icon: ImageVector, onClick: () -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .height(72.dp)
-            .clickable { /* Acción para revisar pedido */ },
+            .clickable { onClick() },
         shape = RoundedCornerShape(12.dp),
         colors = CardDefaults.cardColors(containerColor = Color(0xFFEEEEEE))
     ) {

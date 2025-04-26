@@ -37,7 +37,7 @@ import com.example.proyectopoli.ui.theme.BlackButton
 data class OrderProduct(val product: String, val price: Int)
 
 @Composable
-fun PedidoFragment(navController: NavController) {
+fun PedidoFragment(orderId: String, navController: NavController) {
 
     // Reutilizaación de la barra superior del FragmentItem
     Scaffold(
@@ -87,7 +87,7 @@ fun PedidoFragment(navController: NavController) {
 
                         // Titulo con el consecutivo del pedido
                         Text(
-                            text = "Pedido\n#00000",
+                            text = "Pedido\n$orderId",
                             fontWeight = FontWeight.Bold,
                             fontSize = 28.sp,
                             textAlign = TextAlign.Center,

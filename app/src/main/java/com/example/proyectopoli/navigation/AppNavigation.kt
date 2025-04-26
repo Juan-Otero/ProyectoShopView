@@ -52,8 +52,12 @@ fun AppNavigation(navController: NavHostController) {
         composable("historial"){
             HistorialFragment(navController)
         }
-        composable("pedido"){
-            PedidoFragment(navController)
+        composable(
+            "pedido/{orderId}",
+            arguments = listOf(navArgument("orderId") { type = NavType.StringType })
+        ) { backStackEntry ->
+            val orderId = backStackEntry.arguments?.getString("orderId")
+            PedidoFragment(orderId = orderId ?: "", navController = navController)
         }
 
         // Ruta de navegación para mostrar la información de los productos
