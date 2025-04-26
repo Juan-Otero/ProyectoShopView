@@ -104,6 +104,10 @@ fun RegistroFragment(navController: NavController) {
                         errorMessage = null
                         val prefs = context.getSharedPreferences("usuario", Context.MODE_PRIVATE)
                         prefs.edit()
+                            .putString("nombres", nombres)
+                            .putString("apellidos", apellidos)
+                            .putString("telefono", telefono)
+                            .putString("direccion", direccion)
                             .putString("email", email)
                             .putString("password", password)
                             .apply()
