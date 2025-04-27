@@ -3,6 +3,7 @@ package com.example.proyectopoli.screens.fragments.content
 // Importación de librerias necesarias
 import android.content.Intent
 import android.net.Uri
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -24,11 +25,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.proyectopoli.model.Product
+import com.example.proyectopoli.screens.components.ImageCarousel
+import com.example.proyectopoli.screens.components.VideoPlayer
 import com.example.proyectopoli.ui.theme.BlackButton
 import com.example.proyectopoli.ui.theme.BlueButton
 import com.example.proyectopoli.ui.theme.BlueTopBar
-import com.example.proyectopoli.screens.components.ImageCarousel
-import com.example.proyectopoli.screens.components.VideoPlayer
+import com.example.proyectopoli.data.CartManager
+import com.example.proyectopoli.utils.formatPrice
 
 // Vista general del fragmento y fijación de la barra superior
 @Composable
@@ -44,28 +47,24 @@ fun ItemFragment(product: Product, navController: NavController) {
                 .background(Color.White),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-
-            // Espacios para ajustar la informacion del producto (Imagen, Descripción, Acciones)
             Spacer(modifier = Modifier.height(10.dp))
             ProductImage(product.imageResIds, product.videoResId)
             Spacer(modifier = Modifier.height(20.dp))
             ProductInfo(product)
             Spacer(modifier = Modifier.height(50.dp))
-            ActionButtons()
+            ActionButtons(product)
             Spacer(modifier = Modifier.height(80.dp))
             VisitLink(product.officialUrl)
-            Spacer(modifier = Modifier.height(30.dp)) // Espacio final para evitar recorte
+            Spacer(modifier = Modifier.height(30.dp))
         }
     }
 }
 
-
 // Componente de la barra superior
-@OptIn(ExperimentalMaterial3Api::class) // Utiliza la API experimental Material3 para crear la barra
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopBar(navController: NavController) {
     TopAppBar(
-        // Botón para para retroceder en la barra superior
         navigationIcon = {
             IconButton(
                 onClick = { navController.popBackStack() },
@@ -79,8 +78,6 @@ fun TopBar(navController: NavController) {
                 )
             }
         },
-
-        // Nombre de la aplicación en la barra superior
         title = {
             Box(
                 modifier = Modifier.fillMaxSize(),
@@ -94,7 +91,7 @@ fun TopBar(navController: NavController) {
                         fontWeight = FontWeight.Bold,
                         color = Color.White,
                         fontStyle = FontStyle.Italic
-                        )
+                    )
                     Spacer(modifier = Modifier.width(40.dp))
                 }
             }
@@ -103,9 +100,7 @@ fun TopBar(navController: NavController) {
     )
 }
 
-
 /* SECCIÓN DE PRODUCTO */
-// Componente de las imagenes y videos del producto con las flechas para desplazarlas
 @Composable
 fun ProductImage(images: List<Int>, video: Int) {
     Column(
@@ -113,9 +108,7 @@ fun ProductImage(images: List<Int>, video: Int) {
         modifier = Modifier.padding(top = 10.dp)
     ) {
         ImageCarousel(images = images)
-
         Spacer(modifier = Modifier.height(20.dp))
-
         VideoPlayer(
             videoResId = video,
             modifier = Modifier
@@ -126,27 +119,27 @@ fun ProductImage(images: List<Int>, video: Int) {
     }
 }
 
-// Componente de informacion detallada del producto
 @Composable
 fun ProductInfo(product: Product) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(product.prodName, fontWeight = FontWeight.Bold, fontSize = 28.sp, color = Color.Black) // Nombre del producto
+        Text(product.prodName, fontWeight = FontWeight.Bold, fontSize = 28.sp, color = Color.Black)
         Spacer(modifier = Modifier.height(18.dp))
-        Text(product.prodDescription, fontSize = 22.sp, color = Color.Gray, textAlign = TextAlign.Center) // Descripción del Producto
+        Text(product.prodDescription, fontSize = 22.sp, color = Color.Gray, textAlign = TextAlign.Center)
         Spacer(modifier = Modifier.height(30.dp))
-        Text(formatPrice(product.prodPrice), fontWeight = FontWeight.Bold, fontSize = 36.sp, color = Color.Black) // Precio del Producto
+        Text(formatPrice(product.prodPrice), fontWeight = FontWeight.Bold, fontSize = 36.sp, color = Color.Black)
     }
 }
 
-
-// Botones de agregar al carrito y comprar
 @Composable
-fun ActionButtons() {
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+fun ActionButtons(product: Product) {
+    val context = LocalContext.current
 
-        // Botón para agregar el producto al carrito
+    Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Button(
-            onClick = { /* Acción agregar al carrito */ },
+            onClick = { 
+                CartManager.addToCart(product)
+                Toast.makeText(context, "Producto agregado al carrito", Toast.LENGTH_SHORT).show()
+            },
             colors = ButtonDefaults.buttonColors(containerColor = BlackButton),
             modifier = Modifier.fillMaxWidth(0.6f)
         ) {
@@ -155,7 +148,6 @@ fun ActionButtons() {
 
         Spacer(modifier = Modifier.height(15.dp))
 
-        // Botón para comprar directamente el producto
         Button(
             onClick = { /* Acción comprar */ },
             colors = ButtonDefaults.buttonColors(containerColor = BlueButton),
@@ -166,13 +158,10 @@ fun ActionButtons() {
     }
 }
 
-// Enlace para visitar la página oficial
 @Composable
-fun VisitLink(officalUrl: String) {
-
+fun VisitLink(officialUrl: String) {
     val context = LocalContext.current
 
-    // Texto que contiene la URL de la página oficial del producto
     Text(
         text = "Visitar Página Oficial",
         color = Color.Black,
@@ -180,7 +169,7 @@ fun VisitLink(officalUrl: String) {
         fontSize = 18.sp,
         textDecoration = TextDecoration.Underline,
         modifier = Modifier.clickable {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(officalUrl))
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(officialUrl))
             context.startActivity(intent)
         }
     )

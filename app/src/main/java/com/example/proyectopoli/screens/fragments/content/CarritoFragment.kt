@@ -1,55 +1,38 @@
 package com.example.proyectopoli.screens.fragments.content
 
+import android.widget.Toast
+import androidx.compose.ui.draw.clip
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Remove
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.ShoppingCart
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.proyectopoli.data.CartManager
+import com.example.proyectopoli.model.Product
 import com.example.proyectopoli.ui.theme.BlackButton
 import com.example.proyectopoli.ui.theme.BlueButton
 import com.example.proyectopoli.ui.theme.RedButton
 import java.text.NumberFormat
-import java.util.Locale
-
-// Lista de los productos agregados
-data class CartProduct(val product: String, val price: Int)
+import java.util.*
 
 @Composable
 fun CarritoFragment(navController: NavController) {
+    val context = LocalContext.current
+    var cartItems by remember { mutableStateOf(CartManager.getCartItems()) }
+    var total by remember { mutableStateOf(CartManager.getTotalPrice()) }
 
-    // Reutilización de la barra superior del FragmentItem
     Scaffold(
         topBar = { TopBar(navController) }
     ) { paddingValues ->
@@ -59,50 +42,35 @@ fun CarritoFragment(navController: NavController) {
                 .padding(paddingValues)
                 .background(Color.White)
         ) {
-            Spacer(modifier = Modifier.height(6.dp))
+            Spacer(modifier = Modifier.height(8.dp))
 
-            // Carta que contiene los detalles del carrito
             Card(
                 border = BorderStroke(2.dp, Color.Gray),
-                elevation = CardDefaults.cardElevation(0.dp),
                 modifier = Modifier
                     .padding(10.dp)
                     .fillMaxSize()
-                    .clip(RoundedCornerShape(12.dp))
+                    .clip(RoundedCornerShape(12.dp)),
+                elevation = CardDefaults.cardElevation(0.dp)
             ) {
-
-                // Caja que encierra el contenido para dar fondo de degradado
                 Box(
                     modifier = Modifier
-                        .fillMaxSize()
                         .background(
-                            brush = Brush.verticalGradient(
-                                colors = listOf(
-                                    Color(0xFFE0E0E0),
-                                    Color.White
-                                )
+                            Brush.verticalGradient(
+                                colors = listOf(Color(0xFFE0E0E0), Color.White)
                             )
                         )
                         .padding(16.dp)
                 ) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
 
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(16.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-
-                        // Título con ícono de carrito
                         Row(
                             verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.Center
+                            horizontalArrangement = Arrangement.Center,
+                            modifier = Modifier.fillMaxWidth()
                         ) {
                             Text(
-                                text = "Resumen\nCarrito",
-                                fontWeight = FontWeight.Bold,
+                                text = "Resumen de\nla compra",
                                 fontSize = 28.sp,
-                                textAlign = TextAlign.Center,
                                 color = BlackButton,
                                 modifier = Modifier.weight(1f)
                             )
@@ -113,78 +81,57 @@ fun CarritoFragment(navController: NavController) {
                             )
                         }
 
-                        Spacer(modifier = Modifier.height(25.dp))
+                        Spacer(modifier = Modifier.height(20.dp))
 
-                        // Listado de productos
-                        val productos = listOf(
-                            CartProduct("Producto 1", 54000),
-                            CartProduct("Producto 2", 72000),
-                            CartProduct("Producto 3", 25000),
-                            CartProduct("Producto 4", 32000)
-                        )
-
-                        // Algoritmo para mostrar los productos que se agreguen y su precio
-                        var total = 0
-                        productos.forEach { producto ->
-                            total += producto.price
-                            Row(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(vertical = 10.dp),
-                                horizontalArrangement = Arrangement.SpaceBetween,
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Text("• ${producto.product}", fontSize = 20.sp, fontWeight = FontWeight.SemiBold)
-                                Text(text = formatearPrecio(producto.price), fontSize = 20.sp)
-
-                                // Botón para remover un producto
-                                IconButton(
-                                    onClick = { /* Acción para eliminar */ },
-                                    modifier = Modifier
-                                        .size(25.dp)
-                                        .background(RedButton, shape = RoundedCornerShape(25.dp))
-                                        .padding(end = 0.5.dp)
-                                ) {
-                                    Icon(
-                                        imageVector = Icons.Default.Remove,
-                                        contentDescription = "Eliminar",
-                                        tint = Color.White,
-                                        modifier = Modifier.size(24.dp)
-                                    )
-                                }
-                            }
-                        }
-
-                        Spacer(modifier = Modifier.height(120.dp))
-
-                        // Precio total del carrito
-                        Text(
-                            text = formatearPrecio(total),
-                            fontSize = 45.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = BlackButton,
-                            modifier = Modifier
-                                .align(Alignment.CenterHorizontally)
-                                .padding(top = 12.dp)
-                        )
-
-                        Spacer(modifier = Modifier.height(40.dp))
-
-                        // Botón de Finalizar Compra
-                        Button(
-                            onClick = { /* lógica de compra */ },
-                            colors = ButtonDefaults.buttonColors(containerColor = BlueButton),
-                            modifier = Modifier
-                                .width(220.dp)
-                                .height(50.dp)
-                                .clip(RoundedCornerShape(25.dp))
-                        ) {
+                        if (cartItems.isEmpty()) {
                             Text(
-                                "Finalizar Compra",
-                                color = Color.White,
-                                fontSize = 21.sp,
-                                fontWeight = FontWeight.Bold
+                                text = "Tu carrito está vacío.",
+                                fontSize = 22.sp,
+                                color = Color.Gray,
+                                modifier = Modifier.padding(vertical = 40.dp)
                             )
+                        } else {
+                            cartItems.forEach { product ->
+                                CartItem(
+                                    product = product,
+                                    onRemove = {
+                                        CartManager.removeFromCart(product)
+                                        cartItems = CartManager.getCartItems()
+                                        total = CartManager.getTotalPrice()
+                                    }
+                                )
+                            }
+
+                            Spacer(modifier = Modifier.height(40.dp))
+
+                            Text(
+                                text = formatearPrecio(total),
+                                fontSize = 40.sp,
+                                fontWeight = androidx.compose.ui.text.font.FontWeight.Bold,
+                                color = BlackButton
+                            )
+
+                            Spacer(modifier = Modifier.height(30.dp))
+
+                            Button(
+                                onClick = {
+                                    Toast.makeText(context, "¡Compra finalizada exitosamente!", Toast.LENGTH_SHORT).show()
+                                    CartManager.clearCart()
+                                    cartItems = CartManager.getCartItems()
+                                    total = CartManager.getTotalPrice()
+                                },
+                                colors = ButtonDefaults.buttonColors(containerColor = BlueButton),
+                                modifier = Modifier
+                                    .width(220.dp)
+                                    .height(50.dp)
+                            ) {
+                                Text(
+                                    text = "Finalizar Compra",
+                                    color = Color.White,
+                                    fontSize = 20.sp,
+                                    fontWeight = androidx.compose.ui.text.font.FontWeight.Bold
+                                )
+                            }
                         }
                     }
                 }
@@ -193,8 +140,33 @@ fun CarritoFragment(navController: NavController) {
     }
 }
 
-// Función para formatear los precios y mostrarlos con separador de miles
-fun formatearPrecio(valor: Int): String {
-    val formato = NumberFormat.getNumberInstance(Locale("es", "CO"))
-    return "$${formato.format(valor)}"
+@Composable
+fun CartItem(product: Product, onRemove: () -> Unit) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text("• ${product.prodName}", fontSize = 18.sp)
+        Text(formatearPrecio(product.prodPrice), fontSize = 18.sp)
+        IconButton(
+            onClick = { onRemove() },
+            modifier = Modifier
+                .size(30.dp)
+                .background(RedButton, shape = RoundedCornerShape(50))
+        ) {
+            Icon(
+                imageVector = Icons.Default.Delete,
+                contentDescription = "Eliminar",
+                tint = Color.White
+            )
+        }
+    }
+}
+
+fun formatearPrecio(valor: Double): String {
+    val formato = NumberFormat.getCurrencyInstance(Locale("es", "CO"))
+    return formato.format(valor)
 }
