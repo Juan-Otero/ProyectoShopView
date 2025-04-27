@@ -38,6 +38,7 @@ import com.example.proyectopoli.model.Category
 import com.example.proyectopoli.model.Product
 import com.example.proyectopoli.model.ProductRepository
 import com.example.proyectopoli.ui.theme.BlackButton
+import com.example.proyectopoli.utils.formatPrice
 import java.text.NumberFormat
 import java.util.Locale
 
@@ -239,12 +240,4 @@ fun ProductCard(product: Product, onClick: () -> Unit) {
             )
         }
     }
-}
-
-// Funcion para formatear el precio con separador de miles
-fun formatPrice(price: Double): String {
-    val format = NumberFormat.getNumberInstance(Locale("es", "CO"))
-    format.minimumFractionDigits = 0
-    format.maximumFractionDigits = 0
-    return "$${format.format(price)}"
 }
